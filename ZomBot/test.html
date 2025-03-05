@@ -1,0 +1,110 @@
+<!--https://github.com/IseeJ-->
+<!--please don't use my code without permission!-->
+
+<!--I discovered Shift + Alt + F way too late-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZomBot Personality Quiz</title>
+    <link rel="icon" type="gif" href="IMG/ZomBot.gif">
+    <stylesheet href="styles.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+</head>
+
+<body>
+    <div class="start-page" id="start-page">
+        <h1>
+            <div class="a2" onclick="triggerIconShower(event)">
+                Zombot Personality Quiz</div>  
+                <p1>Note: ZomBot is perfectly safe and cannot infect you.</p1>
+        </h1>
+        <img class="start-image" src="IMG/ZomBot.gif" alt="ZomBot">
+        <br><br>
+        <div class="button-group">
+            <button id="start1-button" class="start-button">Start</button>
+            <button class="start-button" onclick="window.open('easteregg.html', '_blank');">?</button>
+        </div>
+        <br><br>
+    </div>
+
+
+    <div class="phone-screen" id="interm" style="display: none; background-color: rgb(22, 22, 22);">
+        <div class="header" id="header1" style="color: var(--8-color); background-color: rgb(22, 22, 22);"
+        onclick="window.open('new.html', '_blank');">ZomBot</div>
+        <br><br><br>
+        <p style="color: var(--8-color); text-align: center; margin-left: 25px; margin-right: 25px;">"The thought of zombies consumes your every thought. As you drift in thought, your phone suddenly flickers to life. An app pulses softly on the screen, waiting for your touch..."</p>
+        <br><br><br>
+        <button id="start-button" class="icon-button">
+            <img src="IMG/Heh/C0.png" alt="App" class="app-icon">
+            <span class="icon-caption">ZomBot</span>
+        </button>
+    </div>
+
+
+    <div class="phone-screen" id="phone-screen" style="display: none;">
+        <div class="header" id="header" style="color: var(--8-color); background-color: rgb(22, 22, 22);"
+            onclick="window.open('new.html', '_blank');">ZomBot</div>
+        <div id="chatbox" class="chatbox"></div>
+        <div id="choices" class="choices"></div>
+    </div>
+
+    <div class="result-page" id="result-page" style="display: none;">
+        <p>Feel free to share your result!
+        <div class="a2" onclick="triggerIconShower(event)">
+            #ZomBot
+        </div>
+        </p>
+        <img id="result-image" class="result-image" src="" alt="">
+        <p id="result-text" class="result-text"></p>
+
+        <div class="button-group">
+            <button class="restart-button tooltip" onclick="share()">Share
+                <span class="tooltiptext">Copy link & download screenshot</span>
+            </button>
+            <button class="restart-button" onclick="restartQuiz()">Restart</button>
+            <!--a href="about.html" target="_blank" rel="noopener noreferrer">
+                    <button class="start-button">?</button>
+                </a-->
+        </div>
+        <p3>
+            <br>
+            if (result === 'sooo meeee') { <br>
+            &nbsp;&nbsp; Yayyy! It describes you!; <br>
+            } else if (result === 'doesn't sound like me but I love it!!') { <br>
+            &nbsp;&nbsp;it probably describes your type/(future) partner; <br>
+            } else {<br>
+            &nbsp;&nbsp; check <a href='about.html'>this</a> out, pick and choose!<br>
+            }<br>
+        </p3>
+        <p3 style="color: #fcedcd">
+            <br>P.S. I wonder if there are any hidden secrets...<br>
+        </p3>
+    </div>
+
+
+    <!--debug--><!--display: none;-->
+    <div id="debug-box"
+        style="display: none; position: absolute; top: 10px; right: 10px; background-color: rgba(0, 0, 0, 0.7); color: black; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 999;">
+        <strong>Scores:</strong>
+        <pre id="debug-scores"></pre>
+    </div>
+    <footer>
+        <p2>Created by Anna "Wolf" Tuite for the USU ZAO and Personal Portfolio</p2><br>
+    </footer>
+
+    <audio id="notifSound" src="pop.mp3"></audio>
+    <audio id="dingSound" src="pop.mp3"></audio>
+    <audio id="popSound" src="pop.mp3"></audio>
+    <script src="script.js"></script>
+
+</body>
+
+
+
+</html>
