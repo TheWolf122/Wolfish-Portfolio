@@ -16,11 +16,12 @@
     --3-color: #f46817;
     --4-color: #FFDDD2; 
     --5-color: #faa96f;
-    --6-color: rgb(22, 22, 22); 
+    --6-color: hsl(0, 0%, 9%); 
     --7-color: #772518;
     --8-color: #f3dada;
     --9-color:#b3eaa4; 
     --10-color: #1B310F;
+    --11-color: #e7a8f6;
 }
 
 
@@ -454,4 +455,15 @@ font-family: 'Andale Mono', monospace;
 
 .icon-button:hover .app-icon {
 transform: scale(1.1); 
+}
+
+.easteregg {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    font-size: 12px;
+    background-color: var(--11-color);
+    font-family: 'Andale Mono', monospace;
+    cursor: pointer;
+    text-align: center;
 }

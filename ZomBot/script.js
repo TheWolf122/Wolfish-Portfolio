@@ -50,8 +50,7 @@ const dialogue = [
         text: ["*New notification from Unknown*"],
         choices: [
             { id: 1, text: '*Open*', type: 'Null', weight: 0, next: 1, followUpText: [] },
-
-            { id: 2, text: 'DEBUG', type: 'Null', weight: 0, next: 19, followUpText: [] },
+            // { id: 2, text: 'DEBUG', type: 'Null', weight: 0, next: 19, followUpText: [] },
         ]
     },
     // 1 (1)
@@ -230,7 +229,7 @@ const dialogue = [
             { id: 1, text: 'Saying hi to my friends!', type: 'Null', weight: 1, next: 19, followUpText: [] },
             { id: 2, text: 'Practicing my sock throws!', type: 'H', weight: 1, next: 21, followUpText: [] },
             { id: 3, text: 'Getting ready to hunt for brains!', type: 'H', weight: 1, next: 31, followUpText: [] },
-            { id: 4, text: 'Why are there so many people here?', type: 'G', weight: 1, next: 1000, followUpText: [] },
+            { id: 4, text: 'Why are there so many people here?', type: 'G', weight: 1, next: 42, followUpText: [] },
             ]
         },
 
@@ -242,7 +241,7 @@ const dialogue = [
             { id: 1, text: 'Saying hi to my friends!', type: 'Null', weight: 1, next: 19, followUpText: [] },
             { id: 2, text: 'Practicing my sock throws!', type: 'H', weight: 1, next: 21, followUpText: [] },            
             { id: 3, text: 'Getting ready to hunt for brains!', type: 'H', weight: 1, next: 31, followUpText: [] },
-            { id: 4, text: 'Why are there so many people here?', type: 'G', weight: 1, next: 1000, followUpText: [] },
+            { id: 4, text: 'Why are there so many people here?', type: 'G', weight: 1, next: 42, followUpText: [] },
             ]
         },
 
@@ -254,7 +253,7 @@ const dialogue = [
             { id: 1, text: 'Saying hi to my friends!', type: 'Null', weight: 1, next: 19, followUpText: [] },
             { id: 2, text: 'Practicing my sock throws!', type: 'H', weight: 1, next: 21, followUpText: [] },
             { id: 3, text: 'Getting ready to hunt for brains!', type: 'H', weight: 1, next: 31, followUpText: [] },
-            { id: 4, text: 'Why are there so many people here?', type: 'G', weight: 1, next: 1000, followUpText: [] },
+            { id: 4, text: 'Why are there so many people here?', type: 'G', weight: 1, next: 42, followUpText: [] },
             ]
         },
 
@@ -266,7 +265,7 @@ const dialogue = [
             { id: 1, text: 'Saying hi to my friends!', type: 'Null', weight: 1, next: 19, followUpText: [] },
             { id: 2, text: 'Practicing my sock throws with my friends!', type: 'H', weight: 1, next: 21, followUpText: [] },
             { id: 3, text: 'Getting ready to hunt for brains!', type: 'H', weight: 1, next: 31, followUpText: [] },
-            { id: 4, text: 'No, seriously, why are there so many people here?', type: 'G', weight: 1, next: 1000, followUpText: [] },
+            { id: 4, text: 'No, seriously, why are there so many people here?', type: 'G', weight: 1, next: 42, followUpText: [] },
             ]
         },
 
@@ -342,10 +341,10 @@ const dialogue = [
         speaker: 'bot',
         text: ['You run, fast and hard. Youre alone. It\'s dark. As you look around, everything is still.', '...','Looking around, you\'re all alone, not a surivor to be seen anywhere.','What do you do now?'],
         choices: [
-            { id: 1, text: 'Hide and wait until you see humans and join their group. Facing zombies alone would be too scary.', type: 'H', weight: 1, next: 1000, followUpText: [] }, //SCAREDYCAT
+            { id: 1, text: 'Hide and wait until you see humans and join their group. Facing zombies alone would be too scary.', type: 'H', weight: 1, next: 48, followUpText: [] }, //SCAREDYCAT
             { id: 2, text: 'Wander around, carefully looking for zombies as you try to find your group.', type: 'Z', weight: 1, next: 28, followUpText: [] },
             { id: 2, text: 'Run facefirst around every corner. What could go wrong?.', type: 'Z', weight: 1, next: 28, followUpText: [] },
-            { id: 3, text: 'Hunt for zombies and test my survival skills.', type: 'G', weight: 1, next: 1000, followUpText: [] }, //The Runner
+            { id: 3, text: 'Hunt for zombies and test my survival skills.', type: 'G', weight: 1, next: 45, followUpText: [] }, //The Runner
         ]
     },
 
@@ -354,7 +353,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['You throw socks like a pro!','You take out 3 zombies and make it to saftey.', 'You and your squad are safe... for now.', 'You get word that the Zombie hoarde is busy across campus.'], 
         choices: [
-            { id: 1, text: 'I\'m itching for a fight. Let\'s go find the Zombies! ', type: 'H', weight: 1, next: 1000, followUpText: [] }, //The Death Wish
+            { id: 1, text: 'I\'m itching for a fight. Let\'s go find the Zombies! ', type: 'H', weight: 1, next: 47, followUpText: [] }, //The Death Wish
             { id: 2, text: 'This is our chance! Lets finish our objective!', type: 'Z', weight: 1, next: 27, followUpText: [] },
             { id: 3, text: 'I\'ll go with the Flow, whatever other people want to do.', type: 'G', weight: 1, next: 29, followUpText: [] }, 
             { id: 4, text: 'Search for lost players and other groups to make a plan.', type: 'Null', weight: 1, next: 29, followUpText: [] },
@@ -366,7 +365,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['You take out 3 zombies and make it to saftey.', 'You and your squad are safe... for now.', 'You get word that the Zombie hoarde is busy across campus.'], 
         choices: [
-            { id: 1, text: 'I\'m itching for a fight. Let\'s go find the Zombies! ', type: 'H', weight: 1, next: 1000, followUpText: [] }, //The Death Wish
+            { id: 1, text: 'I\'m itching for a fight. Let\'s go find the Zombies! ', type: 'H', weight: 1, next: 47, followUpText: [] }, //The Death Wish
             { id: 2, text: 'This is our chance! Lets finish our objective!', type: 'Z', weight: 1, next: 27, followUpText: [] },
             { id: 3, text: 'I\'ll go with the Flow, whatever other people want to do.', type: 'G', weight: 1, next: 28, followUpText: [] }, 
             { id: 4, text: 'Search for lost players and other groups to make a plan.', type: 'Null', weight: 1, next: 28, followUpText: [] },
@@ -379,7 +378,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['You found your squad before seeing any zombies.','huh, weird.', 'You get word that the Zombie hoarde is busy across campus.'], 
         choices: [
-            { id: 1, text: 'I\'m itching for a fight. Let\'s go find the Zombies! ', type: 'H', weight: 1, next: 1000, followUpText: [] }, //The Death Wish
+            { id: 1, text: 'I\'m itching for a fight. Let\'s go find the Zombies! ', type: 'H', weight: 1, next: 47, followUpText: [] }, //The Death Wish
             { id: 2, text: 'This is our chance! Lets finish our objective!', type: 'Z', weight: 1, next: 27, followUpText: [] },
             { id: 3, text: 'I\'ll go with the Flow, whatever other people want to do.', type: 'G', weight: 1, next: 28, followUpText: [] }, 
             { id: 4, text: 'Search for lost players and other groups to make a plan.', type: 'Null', weight: 1, next: 28, followUpText: [] },
@@ -392,7 +391,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['As you\'re searching for other Humans, you hear music in the distance.', 'Gazzelles! They\'re singing and dancing!'],
         choices: [
-            { id: 1, text: 'I join the dance party. All hail the tree!', type: 'H', weight: 1, next: 1000, followUpText: [] }, //Gazelle
+            { id: 1, text: 'I join the dance party. All hail the tree!', type: 'H', weight: 1, next: 44, followUpText: [] }, //Gazelle
             { id: 2, text: 'I dance for a minute before moving on.', type: 'Z', weight: 1, next: 30, followUpText: [] }, 
             { id: 3, text: 'I study them. What makes *them* peaceful?', type: 'Z', weight: 1, next: 30, followUpText: [] }, 
             { id: 4, text: 'I explain what the Gazzelles are to the confused new players.', type: 'Z', weight: 1, next: 30, followUpText: [] }, 
@@ -404,10 +403,10 @@ const dialogue = [
         speaker: 'bot',
         text: ['You leave the Gazzelles behind, but look at your watch.','The night is nearly over. It\'s almost time to head back to old main.'],
         choices: [
-            { id: 1, text: 'I run back to Old Main! Maybe theres still time to fight some zombies!', type: 'H', weight: 1, next: 1000, followUpText: [] }, //The Runner
-            { id: 2, text: 'II follow the opther players, does this mean we\'re done?.', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //the FreshBlood
-            { id: 3, text: 'I look at Discord to see how we did.', type: 'G', weight: 1, next: 1000, followUpText: [] }, //The Lore Master
-            { id: 4, text: 'I begin to walk to Old Main, looking for lost players on my way.', type: 'Null', weight: 1, next: 1000, followUpText: [] }, //The Knight
+            { id: 1, text: 'I run back to Old Main! Maybe theres still time to fight some zombies!', type: 'H', weight: 1, next: 45, followUpText: [] }, //The Runner
+            { id: 2, text: 'II follow the opther players, does this mean we\'re done?.', type: 'Z', weight: 1, next: 49, followUpText: [] }, //the FreshBlood
+            { id: 3, text: 'I look at Discord to see how we did.', type: 'G', weight: 1, next: 43, followUpText: [] }, //The Lore Master
+            { id: 4, text: 'I begin to walk to Old Main, looking for lost players on my way.', type: 'Null', weight: 1, next: 46, followUpText: [] }, //The Knight
 
         ]
     },
@@ -420,7 +419,7 @@ const dialogue = [
         choices: [
             { id: 1, text: 'Leave the group and follow the humans, tracking their every move.', type: 'Z', weight: 1, next: 32, followUpText: [] },
             { id: 2, text: 'Go scare the humans!', type: 'H', weight: 1, next: 33, followUpText: [] },
-            { id: 3, text: 'Stick with the hoarde...', type: 'G', weight: 1, next: 1000, followUpText: [] }
+            { id: 3, text: 'Stick with the hoarde... who want to go scare some humans', type: 'G', weight: 1, next: 33, followUpText: [] }
         ]
     },
 
@@ -449,7 +448,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['you lunge for the tag, barely making contact with the human before you\'re hit with a sock.','You\'re out for now, but you\'ll be back soon.','The night is still young.','Do you keep hunting or go find the hoarde?'],
         choices: [
-            { id: 1, text: 'I keep hunting. No sense in stopping now!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE KILLER
+            { id: 1, text: 'I keep hunting. No sense in stopping now!', type: 'Z', weight: 1, next: 50, followUpText: [] }, //THE KILLER
             { id: 2, text: 'I head back to the Hoarde with my fresh kill', type: 'Z', weight: 1, next: 36, followUpText: [] },
         ]
     },
@@ -460,7 +459,7 @@ const dialogue = [
         text: ['The Hoarde is busy and wants you to head back.'],
         choices: [
             { id: 1, text: 'aww man... I\'ll head back then.', type: 'Z', weight: 1, next: 38, followUpText: [] },
-            { id: 2, text: 'I\'ll keep hunting. No sense in stopping now!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE KILLER
+            { id: 2, text: 'I\'ll keep hunting. No sense in stopping now!', type: 'Z', weight: 1, next: 50, followUpText: [] }, //THE KILLER
         ]
     },
 
@@ -469,7 +468,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['You return to the hoarde, your prize in tow.', 'You log the tag as you walk because you know it makes life easier for the mods.', 'You make it back to the hoarde.','You get word from the harbinger that your mission objective is only blocked by a few humans.', 'What do you do?'],
         choices: [
-            { id: 1, text: 'I charge in, yelling a war cry and terrifying the humans.', type: 'Z', weight: 1, next: 37, followUpText: [] }, //THE KILLER
+            { id: 1, text: 'I charge in, yelling a war cry and terrifying the humans.', type: 'Z', weight: 1, next: 37, followUpText: [] }, 
             { id: 2, text: 'I cover my friends, tanking socks to allow them to get closer.', type: 'Z', weight: 1, next: 38, followUpText: [] },
             { id: 2, text: 'I stage a surprise attack with some other Zombies.', type: 'Z', weight: 1, next: 39, followUpText: [] },
             { id: 2, text: 'I ask if they want to party.', type: 'Z', weight: 1, next: 40, followUpText: [] },
@@ -481,9 +480,9 @@ const dialogue = [
         speaker: 'bot',
         text: ['They scream in terror, dropping their socks in surprise.','You and your hoarde make quick work of them.','Well... most of them.', 'One of the humans escapes, running away.'],
         choices: [
-            { id: 1, text: 'I chase them down, they can\'t escape!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE FROG
-            { id: 2, text: 'I let them go, allowing them to live to tell the tale to the other humans..', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE CRAB
-            { id: 3, text: 'I loop around and hide behind a corner, ready to jump out and get the tag.', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE CHAMEOLON
+            { id: 1, text: 'I chase them down, they can\'t escape!', type: 'Z', weight: 1, next: 51, followUpText: [] }, //THE FROG
+            { id: 2, text: 'I let them go, allowing them to live to tell the tale to the other humans..', type: 'Z', weight: 1, next: 52, followUpText: [] }, //THE CRAB
+            { id: 3, text: 'I loop around and hide behind a corner, ready to jump out and get the tag.', type: 'Z', weight: 1, next: 53, followUpText: [] }, //THE CHAMEOLON
         ]
     },
 
@@ -492,9 +491,9 @@ const dialogue = [
         speaker: 'bot',
         text: ['Nice! Smart tactic! Juliet calls that \"The Chisel and the Hammer\"','You and your hoarde make quick work of them.','Well... most of them.', 'One of the humans escapes, running away.'],
         choices: [
-            { id: 1, text: 'I chase them down, they can\'t escape!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE FROG
-            { id: 2, text: 'I let them go, allowing them to live to tell the tale to the other humans..', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE CRAB
-            { id: 3, text: 'I loop around and hide behind a corner, ready to jump out and get the tag.', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE CHAMEOLON
+            { id: 1, text: 'I chase them down, they can\'t escape!', type: 'Z', weight: 1, next: 51, followUpText: [] }, //THE FROG
+            { id: 2, text: 'I let them go, allowing them to live to tell the tale to the other humans..', type: 'Z', weight: 1, next: 52, followUpText: [] }, //THE CRAB
+            { id: 3, text: 'I loop around and hide behind a corner, ready to jump out and get the tag.', type: 'Z', weight: 1, next: 53, followUpText: [] }, //THE CHAMEOLON
         ]
     },
 
@@ -504,9 +503,9 @@ const dialogue = [
         speaker: 'bot',
         text: ['You take them by surprise!','You and your hoarde make quick work of them.','Well... most of them.', 'One of the humans escapes, running away.'],
         choices: [
-            { id: 1, text: 'I chase them down, they can\'t escape!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE FROG
-            { id: 2, text: 'I let them go, allowing them to live to tell the tale to the other humans..', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE CRAB
-            { id: 3, text: 'I loop around and hide behind a corner, ready to jump out and get the tag.', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //THE CHAMEOLON
+            { id: 1, text: 'I chase them down, they can\'t escape!', type: 'Z', weight: 1, next: 51, followUpText: [] }, //THE FROG
+            { id: 2, text: 'I let them go, allowing them to live to tell the tale to the other humans..', type: 'Z', weight: 1, next: 52, followUpText: [] }, //THE CRAB
+            { id: 3, text: 'I loop around and hide behind a corner, ready to jump out and get the tag.', type: 'Z', weight: 1, next: 53, followUpText: [] }, //THE CHAMEOLON
         ]
     },
 
@@ -527,8 +526,8 @@ const dialogue = [
         speaker: 'bot',
         text: ['The Humans slowly move closer, some more nervous than others.', 'The humans are now about 5 feet away.'],
         choices: [
-            { id: 1, text: 'I lunge foward, getting the tag!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //CHAMELEON
-            { id: 2, text: 'I turn on music and begin to dance!', type: 'Z', weight: 1, next: 1000, followUpText: [] }, //GAZELLE
+            { id: 1, text: 'I lunge foward, getting the tag!', type: 'Z', weight: 1, next: 53, followUpText: [] }, //CHAMELEON
+            { id: 2, text: 'I turn on music and begin to dance!', type: 'Z', weight: 1, next: 44, followUpText: [] }, //GAZELLE
         ]
     },
 
@@ -559,7 +558,7 @@ const dialogue = [
         speaker: 'bot',
         text: ['You must be a Gazelle!','You\'re the life of the party.','You\'re always dancing, singing, and having a good time.','You\'re the Gazelle!'],
         choices: [
-            { id: 1, text: 'I am a Gazelle!', type: 'G', weight: 1, next: 1000, followUpText: [] }, //THE GAZELLE
+            { id: 1, text: 'I am a Gazelle!', type: 'G', weight: 1, next: 44, followUpText: [] }, //THE GAZELLE
         ]
     },
 
