@@ -1,0 +1,77 @@
+:root {
+        --1-color: #9C9C9C;
+        --2-color: white;
+        --3-color: #f46817;
+        --4-color: #FFDDD2; 
+        --5-color: #faa96f;
+        --6-color: rgb(22, 22, 22); 
+        --7-color: #772518;
+        --8-color: #f3dada;
+        --9-color:#b3eaa4; 
+        --10-color: #1B310F;
+}
+
+body {
+    background-color: var(--1-color);
+    font-family: 'Andale Mono', monospace;
+}
+h1 {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+img {
+    width: 50%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 30px;
+    margin: 0 auto;
+    display: flex;
+    flex: center;
+}
+
+button {
+    background-color: var(--3-color);
+    color: var(--2-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.BackHome {
+    background-color: var(--3-color);
+    color: var(--2-color);
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 20px;
+    align-items: center;
+    /* center the button */
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 200px;
+}
+
+button:hover {
+        background-color: var(--5-color);
+    }
+
+
+.text {
+    color: var(--10-color);
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.image-container img {
+    width: 50%;
+    height: auto;
+}

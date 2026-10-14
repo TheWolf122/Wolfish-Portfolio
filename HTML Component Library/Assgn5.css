@@ -1,0 +1,278 @@
+:root {
+    --color1: #1A1423;
+    --color2: #372549;
+    --color3: #774C60;
+    --color4: #B75D69;
+    --color5: #EACDC2;
+}
+
+.navbarinfo {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.navbarinfo2 {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.navdrawerinfoJS {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.navdrawerinfo {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.navdrawerinfo2 {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.buttoninfo {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.buttoninfo2 {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.fabinfo {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.fabinfo2 {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.carouselinfo {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.carouselinfo2 {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.spinnerinfo {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.spinnerinfo2 {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+.spinnerinfoJS {
+    flex: auto;
+    background-color: var(--color3);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+}
+
+p {
+    color: var(--color5);
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background-color: var(--color1);
+    color: var(--color5);
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5em;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* CSS for actual widgets, copy paste into display */
+
+.navbar {
+    background-color: var(--color2);
+    text-align: center;
+    overflow: hidden;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.mysidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: var(--color2);
+    color:#EACDC2;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+button {
+    background-color: var(--color4);
+    border: none;
+    color: var(--color5);
+    padding: 15px 32px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+}
+
+button:hover {
+    background-color: grey;
+    color: white;
+}
+
+.fab {
+    background-color: var(--color4);
+    border: none;
+    color: var(--color5);
+    padding: 15px 32px;
+    text-align: center;
+    display: flex
+    font-size: 16px;
+    margin: 4px 2px;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    }
+
+/* Carousel time b*tch */
+
+    .carousel {
+        display: flex;
+        overflow: hidden;
+    }
+
+    .carousel img {
+        width: 100%;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel img:not(:first-child) {
+        margin-left: -100%;
+    }
+
+    /* Animation */
+    /* Moves the pictures from side to side */
+    @keyframes slide {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .carousel img:first-child {
+        animation: slide 5s infinite alternate;
+    }
+
+/* okay carousel time is over :( */
+
+.spinners {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40vh;
+}
+
+.spinner1 {
+    flex-wrap: row;
+    border: 16px solid var(--color1);
+    border-top: 16px solid var(--color2);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 1s linear infinite;
+}
+
+.spinner2 {
+    flex-wrap: row;
+    border: 16px solid var(--color5);
+    border-top: 16px solid var(--color4);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+.spinner3 {
+    flex-wrap: row;
+    border: 16px solid var(--color3);
+    border-top: 16px solid var(--color2);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 3s linear infinite;
+}
+
+.spinner4 {
+    flex-wrap: row;
+    border: 16px solid var(--color4);
+    border-top: 16px solid var(--color3);
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 4s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

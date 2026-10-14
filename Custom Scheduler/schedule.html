@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework Scheduler 📚</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f1419 100%);
+            color: #e6e6fa;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: rgba(75, 0, 130, 0.2);
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid #8a2be2;
+            box-shadow: 0 8px 32px rgba(138, 43, 226, 0.3);
+        }
+
+        .app-title {
+            font-size: 2.5em;
+            color: #dda0dd;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .daily-quote {
+            background: rgba(30, 144, 255, 0.2);
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 4px solid #1e90ff;
+            margin-top: 15px;
+            font-style: italic;
+            color: #87ceeb;
+        }
+
+        .navigation {
+            margin-bottom: 30px;
+        }
+
+        .nav-row {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .nav-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .nav-btn {
+            background: linear-gradient(45deg, #8a2be2, #9370db);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.6);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #ff6347, #ff8c00);
+            box-shadow: 0 4px 15px rgba(255, 99, 71, 0.4);
+        }
+
+        /* Make the class schedule button span the full width */
+        .nav-btn.full-width {
+            flex: 1;
+            max-width: none;
+        }
+
+        .view {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Priority Tasks Section */
+        .priority-tasks {
+            background: rgba(220, 20, 60, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            border: 2px solid #dc143c;
+            box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3);
+        }
+
+        .priority-tasks h3 {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .week-view {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .day-card {
+            background: rgba(25, 25, 112, 0.3);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid #4169e1;
+            box-shadow: 0 4px 20px rgba(65, 105, 225, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .day-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #87ceeb;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 2px solid #4169e1;
+            padding-bottom: 8px;
+        }
+
+        .task-item {
+            background: rgba(138, 43, 226, 0.2);
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border-left: 4px solid #8a2be2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .task-item:hover {
+            background: rgba(138, 43, 226, 0.3);
+            transform: translateX(5px);
+        }
+
+        .task-item.completed {
+            background: rgba(60, 60, 60, 0.3);
+            border-left-color: #666;
+            opacity: 0.7;
+        }
+
+        /* Category-specific styling */
+        .task-item.test {
+            background: rgba(220, 20, 60, 0.25);
+            border-left-color: #dc143c;
+            box-shadow: 0 2px 10px rgba(220, 20, 60, 0.2);
+        }
+
+        .task-item.assignment {
+            background: rgba(255, 140, 0, 0.25);
+            border-left-color: #ff8c00;
+            box-shadow: 0 2px 10px rgba(255, 140, 0, 0.2);
+        }
+
+        .task-item.work {
+            background: rgba(34, 139, 34, 0.25);
+            border-left-color: #228b22;
+        }
+
+        .task-item.misc {
+            background: rgba(138, 43, 226, 0.2);
+            border-left-color: #8a2be2;
+        }
+
+        .task-content {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .task-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: #8a2be2;
+            cursor: pointer;
+        }
+
+        .task-details {
+            flex: 1;
+        }
+
+        .task-details.completed {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .task-category {
+            font-size: 0.7em;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: 8px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .task-category.test {
+            background: #dc143c;
+            color: white;
+        }
+
+        .task-category.assignment {
+            background: #ff8c00;
+            color: white;
+        }
+
+        .task-category.work {
+            background: #228b22;
+            color: white;
+        }
+
+        .task-category.misc {
+            background: #8a2be2;
+            color: white;
+        }
+
+        .task-buttons {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+
+        .task-time {
+            font-size: 0.8em;
+            color: #ff6347;
+            font-weight: bold;
+        }
+
+        .current-day-tasks {
+            background: rgba(255, 165, 0, 0.15);
+            border-radius: 15px;
+            padding: 20px;
+            margin-top: 20px;
+            border: 2px solid #ffa500;
+        }
+
+        .month-view {
+            background: rgba(25, 25, 112, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #4169e1;
+        }
+
+        .month-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .month-nav {
+            background: #8a2be2;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            margin-top: 20px;
+        }
+
+        .calendar-day {
+            background: rgba(138, 43, 226, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #8a2be2;
+            min-height: 80px;
+            font-size: 0.9em;
+        }
+
+        .calendar-day.today {
+            background: rgba(255, 99, 71, 0.3);
+            border-color: #ff6347;
+        }
+
+        .add-task-form {
+            background: rgba(25, 25, 112, 0.3);
+            padding: 30px;
+            border-radius: 20px;
+            border: 2px solid #4169e1;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #dda0dd;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #8a2be2;
+            border-radius: 10px;
+            background: rgba(138, 43, 226, 0.1);
+            color: #e6e6fa;
+            font-size: 1em;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6347;
+            box-shadow: 0 0 10px rgba(255, 99, 71, 0.3);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(45deg, #ff6347, #ff8c00);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 99, 71, 0.4);
+        }
+
+        .delete-btn {
+            background: #ff4444;
+            color: white;
+            border: none;
+            padding: 4px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .repeat-options {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .repeat-options.show {
+            display: block;
+        }
+
+        /* Class Schedule Styles */
+        .class-schedule {
+            background: rgba(25, 25, 112, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #4169e1;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .class-schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .add-class-btn {
+            background: linear-gradient(45deg, #32cd32, #228b22);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(50, 205, 50, 0.4);
+        }
+
+        .add-class-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(50, 205, 50, 0.6);
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: 80px repeat(5, 1fr);
+            gap: 1px;
+            background: rgba(138, 43, 226, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .schedule-header {
+            background: rgba(138, 43, 226, 0.3);
+            padding: 15px 10px;
+            text-align: center;
+            font-weight: bold;
+            color: #dda0dd;
+            font-size: 1.1em;
+        }
+
+        .schedule-time {
+            background: rgba(65, 105, 225, 0.2);
+            padding: 10px 5px;
+            text-align: center;
+            font-weight: bold;
+            color: #87ceeb;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid rgba(138, 43, 226, 0.3);
+        }
+
+        .schedule-cell {
+            background: rgba(25, 25, 112, 0.1);
+            min-height: 60px;
+            padding: 5px;
+            border: 1px solid rgba(138, 43, 226, 0.1);
+            position: relative;
+        }
+
+        .schedule-cell:hover {
+            background: rgba(138, 43, 226, 0.15);
+        }
+
+        .class-block {
+            border-radius: 8px;
+            padding: 8px;
+            margin: 2px 0;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            border: 2px solid transparent;
+        }
+
+        .class-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Color variations for class blocks */
+        .class-block.purple {
+            background: linear-gradient(135deg, rgba(138, 43, 226, 0.8), rgba(147, 112, 219, 0.8));
+            border-color: #8a2be2;
+        }
+
+        .class-block.blue {
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.8), rgba(65, 105, 225, 0.8));
+            border-color: #1e90ff;
+        }
+
+        .class-block.green {
+            background: linear-gradient(135deg, rgba(34, 139, 34, 0.8), rgba(50, 205, 50, 0.8));
+            border-color: #228b22;
+        }
+
+        .class-block.orange {
+            background: linear-gradient(135deg, rgba(255, 140, 0, 0.8), rgba(255, 165, 0, 0.8));
+            border-color: #ff8c00;
+        }
+
+        .class-block.red {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.8), rgba(255, 99, 71, 0.8));
+            border-color: #dc143c;
+        }
+
+        .class-block.pink {
+            background: linear-gradient(135deg, rgba(255, 20, 147, 0.8), rgba(255, 105, 180, 0.8));
+            border-color: #ff1493;
+        }
+
+        .class-block.teal {
+            background: linear-gradient(135deg, rgba(0, 128, 128, 0.8), rgba(32, 178, 170, 0.8));
+            border-color: #008080;
+        }
+
+        .class-block.indigo {
+            background: linear-gradient(135deg, rgba(75, 0, 130, 0.8), rgba(106, 90, 205, 0.8));
+            border-color: #4b0082;
+        }
+
+        .class-title {
+            font-size: 0.9em;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 4px;
+        }
+
+        .class-details {
+            font-size: 0.7em;
+            font-style: italic;
+            line-height: 1.1;
+            opacity: 0.9;
+        }
+
+        .class-id {
+            margin-bottom: 2px;
+        }
+
+        .class-location {
+            color: #e6e6fa;
+        }
+
+        .class-delete {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255, 68, 68, 0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .class-block:hover .class-delete {
+            display: block;
+        }
+
+        .days-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .day-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            background: rgba(138, 43, 226, 0.1);
+            padding: 8px 12px;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .day-checkbox:hover {
+            background: rgba(138, 43, 226, 0.2);
+            border-color: #8a2be2;
+        }
+
+        .day-checkbox input[type="checkbox"] {
+            width: auto;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="app-title">📚 Homework Scheduler 📚</h1>
+            <div class="daily-quote" id="dailyQuote">
+                "Your daily quote will appear here! ✨"
+            </div>
+        </div>
+
+        <div class="navigation">
+            <div class="nav-row">
+                <button class="nav-btn active" onclick="showView('week', this)">📅 Weekly View</button>
+                <button class="nav-btn" onclick="showView('month', this)">🗓️ Monthly View</button>
+                <button class="nav-btn" onclick="showView('add', this)">➕ Add Task</button>
+            </div>
+            <div class="nav-row">
+                <button class="nav-btn full-width" onclick="showView('classes', this)">🎓 Class Schedule</button>
+            </div>
+        </div>
+
+        <div id="weekView" class="view active">
+            <div class="priority-tasks" id="priorityTasks">
+                <h3>🚨 Priority Tasks This Week (Tests & Assignments)</h3>
+                <div id="priorityTasksList">
+                    <!-- Priority tasks will be populated here -->
+                </div>
+            </div>
+            
+            <div class="week-view" id="weekGrid">
+                <!-- Week view will be populated by JavaScript -->
+            </div>
+            <div class="current-day-tasks">
+                <h3 style="color: #ffa500; margin-bottom: 15px;">📋 Today's Tasks (No Set Time)</h3>
+                <div id="currentDayTasks">
+                    <!-- Current day tasks without time will appear here -->
+                </div>
+            </div>
+        </div>
+
+        <div id="classesView" class="view">
+            <div class="class-schedule">
+                <div class="class-schedule-header">
+                    <h2 style="color: #dda0dd;">🎓 Weekly Class Schedule</h2>
+                    <button class="add-class-btn" onclick="showView('addclass', this)">
+                        ➕ Add Class
+                    </button>
+                </div>
+                
+                <div class="schedule-grid" id="scheduleGrid">
+                    <!-- Schedule grid will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="monthView" class="view">
+            <div class="month-view">
+                <div class="month-header">
+                    <button class="month-nav" onclick="changeMonth(-1)">◀ Previous</button>
+                    <h2 id="monthTitle">November 2024</h2>
+                    <button class="month-nav" onclick="changeMonth(1)">Next ▶</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- Calendar will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <div id="addView" class="view">
+            <div class="add-task-form">
+                <h2 style="text-align: center; color: #dda0dd; margin-bottom: 25px;">✨ Add New Task</h2>
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title</label>
+                        <input type="text" id="taskTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskCategory">Category</label>
+                        <select id="taskCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="test">🧪 Test/Exam</option>
+                            <option value="assignment">📝 Assignment</option>
+                            <option value="work">💼 Work</option>
+                            <option value="misc">📌 Miscellaneous</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDate">Date</label>
+                        <input type="date" id="taskDate" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskTime">Time (Optional)</label>
+                        <input type="time" id="taskTime">
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="isRepeating" onchange="toggleRepeatOptions()">
+                            <label for="isRepeating">Repeating Task</label>
+                        </div>
+                        <div class="repeat-options" id="repeatOptions">
+                            <label for="repeatType">Repeat Every:</label>
+                            <select id="repeatType">
+                                <option value="weekly">Week</option>
+                                <option value="days">Custom Days</option>
+                            </select>
+                            <input type="number" id="repeatInterval" placeholder="Number of days" min="1" style="margin-top: 10px;" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">Description (Optional)</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">🎯 Add Task</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="addclassView" class="view">
+            <div class="add-task-form">
+                <h2 style="text-align: center; color: #dda0dd; margin-bottom: 25px;">📚 Add New Class</h2>
+                <form id="classForm">
+                    <div class="form-group">
+                        <label for="courseTitle">Course Title</label>
+                        <input type="text" id="courseTitle" required placeholder="e.g., Introduction to Psychology">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="courseId">Course ID</label>
+                        <input type="text" id="courseId" required placeholder="e.g., PSYC 101">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="classLocation">Classroom Location</label>
+                        <input type="text" id="classLocation" required placeholder="e.g., Science Building Room 205">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="classColor">Class Color</label>
+                        <select id="classColor" required>
+                            <option value="">Select a color</option>
+                            <option value="purple">🟣 Purple (Default)</option>
+                            <option value="blue">🔵 Blue</option>
+                            <option value="green">🟢 Green</option>
+                            <option value="orange">🟠 Orange</option>
+                            <option value="red">🔴 Red</option>
+                            <option value="pink">🩷 Pink</option>
+                            <option value="teal">🟢 Teal</option>
+                            <option value="indigo">🟣 Indigo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="classStartTime">Start Time</label>
+                        <input type="time" id="classStartTime" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="classEndTime">End Time</label>
+                        <input type="time" id="classEndTime" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Days of the Week</label>
+                        <div class="days-selector">
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="1" id="dayMon"> Monday
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="2" id="dayTue"> Tuesday
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="3" id="dayWed"> Wednesday
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="4" id="dayThu"> Thursday
+                            </label>
+                            <label class="day-checkbox">
+                                <input type="checkbox" value="5" id="dayFri"> Friday
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">🎓 Add Class</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let tasks = [];
+        let classes = [];
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        let dailyQuotes = {};
+
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 
+                       'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Load quotes from quotes.txt file
+        async function loadQuotes() {
+            try {
+                console.log('Attempting to load quotes.txt...');
+                const response = await fetch('quotes.txt');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const quotesText = await response.text();
+                console.log('File loaded successfully, length:', quotesText.length);
+                console.log('First 500 characters:', quotesText.substring(0, 500));
+                parseQuotes(quotesText);
+                displayTodaysQuote();
+            } catch (error) {
+                console.error('Could not load quotes.txt file:', error);
+                console.log('Using fallback quote instead');
+                // For now, let's add the Aug 5 quote manually to test
+                dailyQuotes['8-5'] = 'Sockeye salmon turn bright red with green heads when returning to spawn, having lived as silver fish in the ocean.';
+                displayTodaysQuote();
+            }
+        }
+
+        // Parse the quotes file format
+        function parseQuotes(quotesText) {
+            const lines = quotesText.split('\n');
+            console.log('Total lines in file:', lines.length);
+            
+            for (let line of lines) {
+                line = line.trim();
+                // Look for lines that start with month abbreviation and day number
+                const match = line.match(/^(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+(\d{1,2}):\s*(.+)$/);
+                
+                if (match) {
+                    const [, monthAbbrev, day, quote] = match;
+                    const monthMap = {
+                        'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
+                        'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12
+                    };
+                    
+                    const month = monthMap[monthAbbrev];
+                    const key = `${month}-${parseInt(day)}`;
+                    dailyQuotes[key] = quote;
+                    
+                    // Debug log for today's date specifically
+                    if (month === 8 && parseInt(day) === 5) {
+                        console.log('Found Aug 5 quote:', quote);
+                    }
+                }
+            }
+            
+            console.log('Parsed quotes:', Object.keys(dailyQuotes).length);
+            console.log('Sample quotes:', Object.keys(dailyQuotes).slice(0, 10));
+        }
+
+        // Display today's quote
+        function displayTodaysQuote() {
+            const today = new Date();
+            const month = today.getMonth() + 1; // JavaScript months are 0-indexed
+            const day = today.getDate();
+            const key = `${month}-${day}`;
+            
+            console.log('Looking for quote with key:', key);
+            console.log('Available keys:', Object.keys(dailyQuotes));
+            
+            const quote = dailyQuotes[key];
+            
+            if (quote) {
+                console.log('Found quote:', quote);
+                document.getElementById('dailyQuote').innerHTML = `"${quote}"`;
+            } else {
+                console.log('No quote found for today, using fallback');
+                document.getElementById('dailyQuote').innerHTML = `"Every day is a new opportunity to learn something amazing! 🌟" (No quote found for ${months[month-1]} ${day})`;
+            }
+        }
+
+        // Utility function to parse dates correctly
+        function parseTaskDate(dateString) {
+            const parts = dateString.split('-');
+            return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+        }
+
+        // Check if a task should appear on a given date
+        function isTaskOnDate(task, targetDate) {
+            const targetStr = targetDate.toDateString();
+            
+            if (task.isRepeating) {
+                const taskDate = parseTaskDate(task.date);
+                const timeDiff = targetDate.getTime() - taskDate.getTime();
+                const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                
+                if (daysDiff < 0) return false;
+                
+                if (task.repeatType === 'weekly') {
+                    return daysDiff % 7 === 0;
+                } else if (task.repeatType === 'days') {
+                    return daysDiff % task.repeatInterval === 0;
+                }
+            } else {
+                return parseTaskDate(task.date).toDateString() === targetStr;
+            }
+            return false;
+        }
+
+        // Get priority tasks for the current week
+        function getPriorityTasksThisWeek() {
+            const today = new Date();
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            const endOfWeek = new Date(startOfWeek);
+            endOfWeek.setDate(startOfWeek.getDate() + 6);
+            
+            const priorityTasks = [];
+            
+            for (let i = 0; i < 7; i++) {
+                const day = new Date(startOfWeek);
+                day.setDate(startOfWeek.getDate() + i);
+                
+                const dayTasks = tasks.filter(task => 
+                    isTaskOnDate(task, day) && (task.category === 'test' || task.category === 'assignment')
+                );
+                
+                dayTasks.forEach(task => {
+                    priorityTasks.push({
+                        ...task,
+                        displayDate: day.toDateString(),
+                        dayName: days[day.getDay()],
+                        monthDay: `${day.getMonth() + 1}/${day.getDate()}`
+                    });
+                });
+            }
+            
+            // Sort by category priority (tests first) then by date
+            priorityTasks.sort((a, b) => {
+                if (a.category !== b.category) {
+                    if (a.category === 'test') return -1;
+                    if (b.category === 'test') return 1;
+                }
+                return new Date(a.date) - new Date(b.date);
+            });
+            
+            return priorityTasks;
+        }
+
+        // Render priority tasks section
+        function renderPriorityTasks() {
+            const priorityTasks = getPriorityTasksThisWeek();
+            const container = document.getElementById('priorityTasksList');
+            
+            if (priorityTasks.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #87ceeb; font-style: italic;">No tests or assignments this week! 🎉</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            priorityTasks.forEach(task => {
+                const isCompleted = isTaskCompletedOnDate(task, task.displayDate);
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item ${task.category} ${isCompleted ? 'completed' : ''}`;
+                taskElement.innerHTML = `
+                    <div class="task-content">
+                        <input type="checkbox" class="task-checkbox" ${isCompleted ? 'checked' : ''} 
+                               onchange="toggleTaskCompletion('${task.id}', '${task.displayDate}')">
+                        <div class="task-details ${isCompleted ? 'completed' : ''}">
+                            <div><strong>${task.title}</strong></div>
+                            <div style="font-size: 0.8em; color: #dda0dd;">${task.dayName} ${task.monthDay}${task.time ? ` at ${formatTime(task.time)}` : ''}</div>
+                        </div>
+                        <span class="task-category ${task.category}">${task.category}</span>
+                    </div>
+                    <div class="task-buttons">
+                        <button class="delete-btn" onclick="deleteTask('${task.id}')">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(taskElement);
+            });
+        }
+
+        function showView(viewName, buttonElement) {
+            document.querySelectorAll('.view').forEach(view => view.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(viewName + 'View').classList.add('active');
+            if (buttonElement) {
+                buttonElement.classList.add('active');
+            }
+            
+            if (viewName === 'week') {
+                renderWeekView();
+            } else if (viewName === 'classes') {
+                renderClassSchedule();
+            } else if (viewName === 'month') {
+                renderMonthView();
+            }
+        }
+
+        function renderWeekView() {
+            renderPriorityTasks();
+            
+            const weekGrid = document.getElementById('weekGrid');
+            const today = new Date();
+            const startOfWeek = new Date(today);
+            startOfWeek.setDate(today.getDate() - today.getDay());
+            
+            weekGrid.innerHTML = '';
+            
+            for (let i = 0; i < 7; i++) {
+                const day = new Date(startOfWeek);
+                day.setDate(startOfWeek.getDate() + i);
+                
+                const dayCard = document.createElement('div');
+                dayCard.className = 'day-card';
+                
+                const isToday = day.toDateString() === today.toDateString();
+                const dayTitle = `${days[day.getDay()]} ${day.getMonth() + 1}/${day.getDate()}`;
+                
+                dayCard.innerHTML = `
+                    <div class="day-title" style="${isToday ? 'color: #ff6347;' : ''}">${dayTitle}</div>
+                    <div id="day-${i}-tasks"></div>
+                `;
+                
+                weekGrid.appendChild(dayCard);
+                renderDayTasks(day, `day-${i}-tasks`);
+            }
+            
+            renderCurrentDayTasks();
+        }
+
+        function renderDayTasks(date, containerId) {
+            const container = document.getElementById(containerId);
+            const dateStr = date.toDateString();
+            
+            const dayTasks = tasks.filter(task => 
+                isTaskOnDate(task, date) && task.time && task.time !== ''
+            );
+            
+            container.innerHTML = '';
+            
+            // Sort tasks by priority (tests, assignments, work, misc) then by time
+            dayTasks.sort((a, b) => {
+                const priorityOrder = { 'test': 0, 'assignment': 1, 'work': 2, 'misc': 3 };
+                const aPriority = priorityOrder[a.category] || 3;
+                const bPriority = priorityOrder[b.category] || 3;
+                
+                if (aPriority !== bPriority) {
+                    return aPriority - bPriority;
+                }
+                return (a.time || '').localeCompare(b.time || '');
+            });
+            
+            dayTasks.forEach(task => {
+                const isCompleted = isTaskCompletedOnDate(task, dateStr);
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item ${task.category || 'misc'} ${isCompleted ? 'completed' : ''}`;
+                taskElement.innerHTML = `
+                    <div class="task-content">
+                        <input type="checkbox" class="task-checkbox" ${isCompleted ? 'checked' : ''} 
+                               onchange="toggleTaskCompletion('${task.id}', '${dateStr}')">
+                        <div class="task-details ${isCompleted ? 'completed' : ''}">
+                            <div>${task.title}</div>
+                            <div class="task-time">${formatTime(task.time)}</div>
+                        </div>
+                        <span class="task-category ${task.category || 'misc'}">${task.category || 'misc'}</span>
+                    </div>
+                    <div class="task-buttons">
+                        <button class="delete-btn" onclick="deleteTask('${task.id}')">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(taskElement);
+            });
+        }
+
+        function renderClassSchedule() {
+            const scheduleGrid = document.getElementById('scheduleGrid');
+            scheduleGrid.innerHTML = '';
+            
+            // Create header row
+            const timeHeader = document.createElement('div');
+            timeHeader.className = 'schedule-header';
+            timeHeader.textContent = 'Time';
+            scheduleGrid.appendChild(timeHeader);
+            
+            const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+            weekdays.forEach(day => {
+                const dayHeader = document.createElement('div');
+                dayHeader.className = 'schedule-header';
+                dayHeader.textContent = day;
+                scheduleGrid.appendChild(dayHeader);
+            });
+            
+            // Create time slots from 7 AM to 5 PM
+            for (let hour = 7; hour <= 17; hour++) {
+                // Time column
+                const timeCell = document.createElement('div');
+                timeCell.className = 'schedule-time';
+                timeCell.textContent = formatHour(hour);
+                scheduleGrid.appendChild(timeCell);
+                
+                // Day columns
+                for (let dayNum = 1; dayNum <= 5; dayNum++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'schedule-cell';
+                    
+                    // Find classes for this day and hour
+                    const cellClasses = classes.filter(cls => {
+                        if (!cls.days.includes(dayNum)) return false;
+                        
+                        const startHour = parseInt(cls.startTime.split(':')[0]);
+                        const endHour = parseInt(cls.endTime.split(':')[0]);
+                        const endMinute = parseInt(cls.endTime.split(':')[1]);
+                        
+                        // Check if this hour falls within the class time
+                        return hour >= startHour && (hour < endHour || (hour === endHour && endMinute === 0));
+                    });
+                    
+                    cellClasses.forEach(cls => {
+                        const startHour = parseInt(cls.startTime.split(':')[0]);
+                        // Only show the class block in its first hour to avoid duplicates
+                        if (hour === startHour) {
+                            const classBlock = document.createElement('div');
+                            classBlock.className = `class-block ${cls.color || 'purple'}`;
+                            classBlock.innerHTML = `
+                                <div class="class-title">${cls.title}</div>
+                                <div class="class-details">
+                                    <div class="class-id">${cls.courseId}</div>
+                                    <div class="class-location">${cls.location}</div>
+                                </div>
+                                <button class="class-delete" onclick="deleteClass('${cls.id}')">×</button>
+                            `;
+                            
+                            // Calculate height based on duration
+                            const duration = calculateClassDuration(cls.startTime, cls.endTime);
+                            const heightPerHour = 60; // Base cell height
+                            classBlock.style.height = `${duration * heightPerHour - 4}px`;
+                            classBlock.style.position = 'absolute';
+                            classBlock.style.width = 'calc(100% - 10px)';
+                            classBlock.style.zIndex = '10';
+                            
+                            cell.style.position = 'relative';
+                            cell.appendChild(classBlock);
+                        }
+                    });
+                    
+                    scheduleGrid.appendChild(cell);
+                }
+            }
+        }
+
+        function calculateClassDuration(startTime, endTime) {
+            const [startHour, startMin] = startTime.split(':').map(Number);
+            const [endHour, endMin] = endTime.split(':').map(Number);
+            
+            const startMinutes = startHour * 60 + startMin;
+            const endMinutes = endHour * 60 + endMin;
+            
+            return (endMinutes - startMinutes) / 60; // Return duration in hours
+        }
+
+        function deleteClass(classId) {
+            if (confirm('Are you sure you want to delete this class?')) {
+                classes = classes.filter(cls => cls.id !== classId);
+                saveClasses();
+                renderClassSchedule();
+            }
+        }
+
+        function saveClasses() {
+            // Since localStorage is not supported in artifacts, keep data in memory only
+            console.log('Classes saved to memory:', classes.length);
+        }
+
+        function formatHour(hour) {
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            return `${displayHour}:00 ${ampm}`;
+        }
+
+        function renderCurrentDayTasks() {
+            const container = document.getElementById('currentDayTasks');
+            const today = new Date();
+            const todayStr = today.toDateString();
+            
+            const todayTasks = tasks.filter(task => 
+                isTaskOnDate(task, today) && (!task.time || task.time === '')
+            );
+            
+            container.innerHTML = '';
+            
+            if (todayTasks.length === 0) {
+                container.innerHTML = '<div style="text-align: center; color: #87ceeb; font-style: italic;">No tasks without set times for today! 🎉</div>';
+                return;
+            }
+            
+            // Sort by priority
+            todayTasks.sort((a, b) => {
+                const priorityOrder = { 'test': 0, 'assignment': 1, 'work': 2, 'misc': 3 };
+                const aPriority = priorityOrder[a.category] || 3;
+                const bPriority = priorityOrder[b.category] || 3;
+                return aPriority - bPriority;
+            });
+            
+            todayTasks.forEach(task => {
+                const isCompleted = isTaskCompletedOnDate(task, todayStr);
+                const taskElement = document.createElement('div');
+                taskElement.className = `task-item ${task.category || 'misc'} ${isCompleted ? 'completed' : ''}`;
+                taskElement.innerHTML = `
+                    <div class="task-content">
+                        <input type="checkbox" class="task-checkbox" ${isCompleted ? 'checked' : ''} 
+                               onchange="toggleTaskCompletion('${task.id}', '${todayStr}')">
+                        <div class="task-details ${isCompleted ? 'completed' : ''}">
+                            <div>${task.title}</div>
+                            ${task.description ? `<div style="font-size: 0.8em; color: #dda0dd;">${task.description}</div>` : ''}
+                        </div>
+                        <span class="task-category ${task.category || 'misc'}">${task.category || 'misc'}</span>
+                    </div>
+                    <div class="task-buttons">
+                        <button class="delete-btn" onclick="deleteTask('${task.id}')">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(taskElement);
+            });
+        }
+
+        function renderMonthView() {
+            const calendarGrid = document.getElementById('calendarGrid');
+            const monthTitle = document.getElementById('monthTitle');
+            
+            monthTitle.textContent = `${months[currentMonth]} ${currentYear}`;
+            
+            const firstDay = new Date(currentYear, currentMonth, 1);
+            const lastDay = new Date(currentYear, currentMonth + 1, 0);
+            const startDate = new Date(firstDay);
+            startDate.setDate(startDate.getDate() - firstDay.getDay());
+            
+            calendarGrid.innerHTML = '';
+            
+            // Add day headers
+            days.forEach(day => {
+                const header = document.createElement('div');
+                header.style.cssText = 'text-align: center; font-weight: bold; color: #dda0dd; padding: 10px;';
+                header.textContent = day.substr(0, 3);
+                calendarGrid.appendChild(header);
+            });
+            
+            for (let i = 0; i < 42; i++) {
+                const date = new Date(startDate);
+                date.setDate(startDate.getDate() + i);
+                
+                const dayElement = document.createElement('div');
+                dayElement.className = 'calendar-day';
+                
+                if (date.toDateString() === new Date().toDateString()) {
+                    dayElement.classList.add('today');
+                }
+                
+                const dayTasks = tasks.filter(task => {
+                    if (task.isRepeating) {
+                        return isTaskRepeatingOnDate(task, date);
+                    }
+                    return new Date(task.date).toDateString() === date.toDateString();
+                });
+                
+                // Sort tasks by priority for display
+                dayTasks.sort((a, b) => {
+                    const priorityOrder = { 'test': 0, 'assignment': 1, 'work': 2, 'misc': 3 };
+                    const aPriority = priorityOrder[a.category] || 3;
+                    const bPriority = priorityOrder[b.category] || 3;
+                    return aPriority - bPriority;
+                });
+                
+                dayElement.innerHTML = `
+                    <div style="font-weight: bold; margin-bottom: 5px;">${date.getDate()}</div>
+                    ${dayTasks.slice(0, 2).map(task => {
+                        const categoryClass = task.category || 'misc';
+                        const categoryColors = {
+                            'test': '#dc143c',
+                            'assignment': '#ff8c00',
+                            'work': '#228b22',
+                            'misc': '#8a2be2'
+                        };
+                        return `<div style="font-size: 0.7em; background: ${categoryColors[categoryClass]}40; border-left: 3px solid ${categoryColors[categoryClass]}; padding: 2px 4px; margin: 1px 0; border-radius: 3px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">${task.title}</div>`;
+                    }).join('')}
+                    ${dayTasks.length > 2 ? `<div style="font-size: 0.6em; color: #ff6347;">+${dayTasks.length - 2} more</div>` : ''}
+                `;
+                
+                calendarGrid.appendChild(dayElement);
+            }
+        }
+
+        function changeMonth(direction) {
+            currentMonth += direction;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            } else if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            renderMonthView();
+        }
+
+        function toggleRepeatOptions() {
+            const checkbox = document.getElementById('isRepeating');
+            const options = document.getElementById('repeatOptions');
+            
+            if (checkbox.checked) {
+                options.classList.add('show');
+            } else {
+                options.classList.remove('show');
+            }
+        }
+
+        function isTaskRepeatingOnDate(task, date) {
+            // Fix date parsing for repeating tasks
+            const taskDateParts = task.date.split('-');
+            const taskDate = new Date(parseInt(taskDateParts[0]), parseInt(taskDateParts[1]) - 1, parseInt(taskDateParts[2]));
+            
+            const timeDiff = date.getTime() - taskDate.getTime();
+            const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+            
+            if (daysDiff < 0) return false;
+            
+            if (task.repeatType === 'weekly') {
+                return daysDiff % 7 === 0;
+            } else if (task.repeatType === 'days') {
+                return daysDiff % task.repeatInterval === 0;
+            }
+            
+            return false;
+        }
+
+        function formatTime(time) {
+            if (!time) return '';
+            const [hours, minutes] = time.split(':');
+            const hour = parseInt(hours);
+            const ampm = hour >= 12 ? 'PM' : 'AM';
+            const displayHour = hour % 12 || 12;
+            return `${displayHour}:${minutes} ${ampm}`;
+        }
+
+        function toggleTaskCompletion(taskId, dateStr) {
+            const task = tasks.find(t => t.id === taskId);
+            if (!task) return;
+            
+            // For repeating tasks, we need to track completion per date
+            if (task.isRepeating) {
+                if (!task.completedDates) {
+                    task.completedDates = [];
+                }
+                
+                const dateIndex = task.completedDates.indexOf(dateStr);
+                if (dateIndex > -1) {
+                    // Remove from completed dates
+                    task.completedDates.splice(dateIndex, 1);
+                } else {
+                    // Add to completed dates
+                    task.completedDates.push(dateStr);
+                }
+            } else {
+                // For non-repeating tasks, simple toggle
+                task.completed = !task.completed;
+            }
+            
+            saveTasks();
+            renderWeekView();
+        }
+
+        function isTaskCompletedOnDate(task, dateStr) {
+            if (task.isRepeating) {
+                return task.completedDates && task.completedDates.includes(dateStr);
+            }
+            return task.completed || false;
+        }
+
+        function deleteTask(taskId) {
+            tasks = tasks.filter(task => task.id !== taskId);
+            saveTasks();
+            renderWeekView();
+            renderMonthView();
+        }
+
+        function saveTasks() {
+            // Since localStorage is not supported in artifacts, keep data in memory only
+            console.log('Tasks saved to memory:', tasks.length);
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const taskTitle = document.getElementById('taskTitle').value.trim();
+            const taskDate = document.getElementById('taskDate').value;
+            const taskCategory = document.getElementById('taskCategory').value;
+            
+            if (!taskTitle || !taskDate || !taskCategory) {
+                alert('Please fill in title, date, and category! 📝');
+                return;
+            }
+            
+            const task = {
+                id: Date.now().toString(),
+                title: taskTitle,
+                date: taskDate,
+                time: document.getElementById('taskTime').value || '', // Ensure empty string instead of null
+                category: taskCategory,
+                description: document.getElementById('taskDescription').value.trim(),
+                isRepeating: document.getElementById('isRepeating').checked,
+                repeatType: document.getElementById('repeatType').value,
+                repeatInterval: parseInt(document.getElementById('repeatInterval').value) || 7,
+                completed: false, // Initialize completion status
+                completedDates: [] // Initialize for repeating tasks
+            };
+            
+            tasks.push(task);
+            saveTasks();
+            
+            // Reset form
+            document.getElementById('taskForm').reset();
+            document.getElementById('repeatOptions').classList.remove('show');
+            
+            // Show success message and switch to week view
+            alert('Task added successfully! 🎉');
+            const weekButton = document.querySelector('button[onclick*="week"]');
+            showView('week', weekButton);
+        }
+
+        function handleClassFormSubmit(e) {
+            e.preventDefault();
+            
+            const courseTitle = document.getElementById('courseTitle').value.trim();
+            const courseId = document.getElementById('courseId').value.trim();
+            const classLocation = document.getElementById('classLocation').value.trim();
+            const classColor = document.getElementById('classColor').value;
+            const startTime = document.getElementById('classStartTime').value;
+            const endTime = document.getElementById('classEndTime').value;
+            
+            // Get selected days
+            const selectedDays = [];
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.querySelector(`input[value="${i}"]`);
+                if (checkbox.checked) {
+                    selectedDays.push(i);
+                }
+            }
+            
+            if (!courseTitle || !courseId || !classLocation || !classColor || !startTime || !endTime || selectedDays.length === 0) {
+                alert('Please fill in all fields and select at least one day! 📝');
+                return;
+            }
+            
+            // Validate time order
+            if (startTime >= endTime) {
+                alert('End time must be after start time! ⏰');
+                return;
+            }
+            
+            const classObj = {
+                id: Date.now().toString(),
+                title: courseTitle,
+                courseId: courseId,
+                location: classLocation,
+                color: classColor,
+                startTime: startTime,
+                endTime: endTime,
+                days: selectedDays
+            };
+            
+            classes.push(classObj);
+            saveClasses();
+            
+            // Reset form
+            document.getElementById('classForm').reset();
+            
+            // Show success message and switch to class schedule view
+            alert('Class added successfully! 🎓');
+            const classButton = document.querySelector('button[onclick*="classes"]');
+            showView('classes', classButton);
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('taskForm').addEventListener('submit', handleFormSubmit);
+            document.getElementById('classForm').addEventListener('submit', handleClassFormSubmit);
+            loadQuotes(); // Load and display daily quotes
+            renderWeekView();
+        });
+    </script>
+</body>
+</html>

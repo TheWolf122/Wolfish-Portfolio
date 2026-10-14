@@ -1,0 +1,271 @@
+<html>
+    <head>
+        <title>Assignment 5</title>
+        <link rel="stylesheet" href="Assgn5.css"> 
+        <script src="Assng5.js" defer></script>
+        <!-- add icon font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    </head>
+    <body>
+
+        <h1>Assignment 5</h1>
+
+        <i class="material-icons">favorite</i>
+        
+<!-- NavBar --> <h2>Navbar</h2>
+    <div class="navbar" id="navbar">
+        <i class="material-icons">menu</i>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 1">Example 1</a>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 2">Example 2</a>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 3">Example 3</a>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 4">Example 4</a>
+    </div>
+
+    <div class="navbarinfo" id="navbarinfo">
+        <h2>HTML</h2>
+        <pre class="html" id="navbar-html"></pre>
+
+    </div>
+
+    <div class="navbarinfo2" id="navbarinfo2">
+        <h2>CSS</h2>
+        <p>.navbar {</p>
+        <p>background-color: var(--color2);</p>
+        <p>text-align: center;</p>
+        <p>overflow: hidden;</p>
+        <p>top: 0;</p>
+        <p>width: 100%;</p>
+        <p>z-index: 1000;</p>
+        <p>}</p>
+    </div>
+
+<!-- Navigation Drawer --> <h2>Navigation Drawer</h2>
+    <div class="mysidenav" id="mysidenav">
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 1">Example 1</a>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 2">Example 2</a>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 3">Example 3</a>
+        <a href="Assgn5.html" onclick="navbarPress()" aria-label="Example 4">Example 4</a>
+    </div>
+    <div class="overlay"></div>
+
+    <div class="navdrawer" id="navdrawer">
+        <p>Click the button to open the navigation drawer.</p>
+        <button onclick="openNav()">Open/Close The Navigation Drawer</button>
+    </div>
+
+<div class="navdrawerinfoJS" id="navdrawerinfoJS">
+        <h2>JS</h2>
+        <p> counter = 0;</p>
+        <p>    function openNav() {</p>
+        <p>        if (counter == 0) {</p>
+        <p>            counter = 1;</p>
+        <p>            document.getElementById("mysidenav").style.width = "250px";</p>
+        <p>        }</p>
+        p>        else {</p>
+        <p>            counter = 0;</p>
+        <p>            document.getElementById("mysidenav").style.width = "0";</p>
+        <p>        }</p>
+        <p>    } </p>
+
+</div>
+    <div class="navdrawerinfo" id="navdrawerinfo">
+        <h2>HTML</h2>
+        <p>  </p>
+    </div>
+
+    <div class="navdrawerinfo2" id="navdrawerinfo2">
+        <h2>CSS</h2>
+        <p>.mysidenav {</p>
+        <p>height: 100%;</p>
+        <p>width: 0;</p>
+        <p>position: fixed;</p>
+        <p>z-index: 1000;</p>
+        <p>top: 0;</p>
+        <p>left: 0;</p>
+        <p>background-color: var(--color2);</p>
+        <p>overflow-x: hidden;</p>
+        <p>transition: 0.5s;</p>
+        <p>padding-top: 60px;</p>
+        <p>}</p>
+    </div>
+    
+<!-- Button --> <h2>Button</h2>
+    <div class="button" id="button">
+        <button id="button" onclick="buttonPress()"><i class="material-icons">apps</i></button>
+    </div>
+
+    <div class="buttoninfo" id="buttoninfo">
+        <h2>HTML</h2>
+        <p>  </p>
+    </div>
+
+    <div class="buttoninfo2" id="buttoninfo2">
+        <h2>CSS</h2>
+        <p>.button {</p>
+        <p>background-color: var(--color2);</p>
+        <p>border: none;</p>
+        <p>color: white;</p>
+        <p>padding: 15px 32px;</p>
+        <p>text-align: center;</p>
+        <p>text-decoration: none;</p>
+        <p>display: inline-block;</p>
+        <p>font-size: 16px;</p>
+        <p>margin: 4px 2px;</p>
+        <p>cursor: pointer;</p>
+        <p>border-radius: 12px;</p>
+        <p>}</p>
+        <p></p>     
+        <p>.button:hover {</p>
+        <p>background-color: var(--color3);</p>
+        <p>}</p>
+    </div>
+
+<!-- Floating Action Button --> <h2>Floating Action Button</h2>
+<p>Located in the bottom right of the screen!</p>
+    <div class="fab" id="fab">
+        <button id="fab" onclick="fabPress()"><i class="material-icons">bolt</i></button>
+    </div>
+
+    <div class="fabinfo" id="fabinfo">
+        <h2>HTML</h2>
+        <p>  </p>
+    </div>
+
+    <div class="fabinfo2" id="fabinfo2">
+        <h2>CSS</h2>
+        <p>.fab {</p>
+        <p>background-color: var(--color2);</p>
+        <p>border: none;</p>
+        <p>color: white;</p>
+        <p>padding: 15px 32px;</p>
+        <p>text-align: center;</p>
+        <p>text-decoration: none;</p>
+        <p>display: inline-block;</p>
+        <p>font-size: 16px;</p>
+        <p>margin: 4px 2px;</p>
+        <p>cursor: pointer;</p>
+        <p>border-radius: 50%;</p>
+        <p>position: fixed;</p>
+        <p>bottom: 20px;</p>
+        <p>right: 20px;</p>
+        <p>}</p>
+
+        <p>.fab:hover {</p>
+        <p>background-color: var(--color3);</p>
+        <p>}</p>
+    </div>
+
+<!-- Image Carousel --> <h2>Image Carousel</h2>
+    <div class="carousel">
+        <img src="image1.jpg" alt="Image 1">
+        <img src="image2.jpg" alt="Image 2">
+        <img src="image3.jpg" alt="Image 3">
+        <img src="image4.jpg" alt="Image 4">
+        <!-- Add more images if needed -->
+    </div>
+
+    <div class="carouselinfo" id="carouselinfo">
+        <h2>HTML</h2>
+        <p>  </p>
+    </div>
+
+    <div class="carouselinfo2" id="carouselinfo2">
+        <h2>CSS</h2>
+        <p>.carousel {</p>
+        <p>display: flex;</p>
+        <p>overflow: hidden;</p>
+        <p>}</p>
+        <p></p>
+        <p>.carousel img {</p>
+        <p>width: 100%;</p>
+        <p>height: auto;</p>
+        <p>}</p>
+        <p>.carousel img:not(:first-child) {</p>
+        <p> margin-left: -100%;</p>
+        <p>}</p>
+        <p>@keyframes slide {</p>
+        <p>0% {</p>
+        <p>transform: translateX(0);</p>
+        <p>}</p>
+        <p>100% {</p>
+        <p>transform: translateX(-100%);</p>
+        <p>}</p>
+        <p>}</p>
+        
+        <p>.carousel img:first-child {</p>
+        <p>animation: slide 5s infinite alternate;</p>
+        <p>}</p>
+    </div>
+
+<!-- Loading spinners--> <h2>Loading Spinners</h2>
+<p>Click the first spinner to switch its color!</p>
+<div class="spinners">
+        <div class="spinner1" id="spinner1" onclick="spinnerColor()"></div>
+        <div class="spinner2"></div>
+        <div class="spinner3"></div>
+        <div class="spinner4"></div>
+</div>
+
+<div class = "spinnerinfoJS" id="spinnerinfoJS">
+    <h2>JS</h2>
+    <p> count=0;</p>
+        <p>   function spinnerColor() {</p>
+            <p> if (count == 0) {</p>
+                <p> document.getElementById("spinner1").style.border = "16px solid var(--color2)";</p>
+                    <p> document.getElementById("spinner1").style.borderTop = "16px solid var(--color1)";</p>
+        <p> count = 1;</p>
+            <p>}</p>
+            <p>  else {</p>
+             <p>    document.getElementById("spinner1").style.border = "16px solid var(--color1)";</p>
+            <p>document.getElementById("spinner1").style.borderTop = "16px solid var(--color2)";</p>
+            <p>count = 0;</p>
+           <p>}</p>
+        <p>} </p>
+</div>
+
+<div class="spinnerinfo" id="spinnerinfo">
+
+    <h2>HTML</h2>
+    <p>  </p>
+</div>
+
+<div class="spinnerinfo2" id="spinnerinfo2">
+    <h2>CSS</h2>
+    <p>.spinners {</p>
+    <p>display: flex;</p>
+    <p>justify-content: center;</p>
+    <p>align-items: center;</p>
+    <p>height: 100vh;</p>
+    <p>}</p>
+    <p></p>
+    <p>.spinner1 {</p>
+    <p>border: 16px solid var(--color2);</p>
+    <p>border-top: 16px solid var(--color3);</p>
+    <p>border-radius: 50%;</p>
+    <p>width: 120px;</p>
+    <p>height: 120px;</p>
+    <p>animation: spin 2s linear infinite;</p>
+    <p>}</p>
+    <p>@keyframes spin {</p>}
+        <p>0% { transform: rotate(0deg); }</p>
+        <p>100% { transform: rotate(360deg); }</p>
+</div>
+
+<div class="Info">
+    <h2>Extra Information on Icons!</h2>
+    <p>To add icons, you'll need to import the google font icons by placing</p>
+    <p>"link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"" in the head of your HTML file.</p>
+        <p>to add an icon, copy and paste "i class="ICONPLACEHOLDER">menu /i>" into the placeholder text.</p>
+        <p>For example, to add a heart icon, you would use "i class="material-icons">favorite /i>"</p>
+        <p>For a list of icons, visit: https://fonts.google.com/icons.</p>
+    </p>
+</div>
+
+<div class="Info2">
+    <h2>Extra Information on Colors!</h2>
+    <p>For the colors, I used CSS variables in the :root to make it easier to change the color scheme of the website.</p>
+    <p>For example, to change the color of the navbar, you would change the color of the variable "--color2".</p>
+    <p>I used the website "https://coolors.co/1a1423-372549-774c60-b75d69-eacdc2" to generate the color scheme.</p>
+
+    </body>
+</html>
